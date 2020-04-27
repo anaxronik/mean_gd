@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const path = require('path')
 const config = require('./config/db')
+const accountRouter = require('./routers/accountRouter')
 
 
 const app = express()
@@ -21,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 // подключение к базе данных
-mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(config.remoteDB, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection.on('connected', () => {
     console.log('==> Connect to DB')
 })
@@ -34,17 +35,7 @@ app.get('/', (req, res) => {
     res.send('Main Page')
 })
 
-app.get('/account/reg', (req, res) => {
-    res.send('/account/reg Page')
-})
-
-app.get('/account/auth', (req, res) => {
-    res.send('/account/auth Page')
-})
-
-app.get('/account/dashboard', (req, res) => {
-    res.send('/account/dashboard Page')
-})
+app.use('/account', accountRouter)
 
 app.listen(PORT, () => {
     console.log('=> Server start on port:', PORT)
