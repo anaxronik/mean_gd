@@ -10,6 +10,9 @@ const app = express()
 
 const PORT = process.env.PORT || 3000
 
+// подключение папки с статическими файлами
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.get('/', (req, res) => {
     res.send('Main Page')
 })
