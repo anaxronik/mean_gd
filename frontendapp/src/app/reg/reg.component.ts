@@ -12,4 +12,9 @@ export class RegComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  userRegisterClick() {
+    console.log('userRegisterClick()')
+    return false
+  }
+  
 }
