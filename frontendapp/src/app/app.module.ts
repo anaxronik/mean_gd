@@ -4,17 +4,24 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { RegComponent } from './reg/reg.component';
 import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 
+import { RouterModule, Routes } from '@angular/router'
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'reg', component: RegComponent },
+  { path: 'auth', component: AuthComponent },
+  { path: 'dashboard', component: DashboardComponent },
+]
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RegistrationComponent,
     RegComponent,
     AuthComponent,
     DashboardComponent,
@@ -22,7 +29,8 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
