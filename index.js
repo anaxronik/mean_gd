@@ -6,11 +6,18 @@ const passport = require('passport')
 const path = require('path')
 const config = require('./config/db')
 const accountRouter = require('./routers/accountRouter')
+const passportJWT = require('./config/pasport');
+
 
 
 const app = express()
 
 const PORT = process.env.PORT || 3000
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+passportJWT(passport)
 
 // необходим чтобы сайт мог использовать постороние API
 app.use(cors())

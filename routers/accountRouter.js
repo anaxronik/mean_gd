@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user');
+const passport = require('passport');
+const jsonwebtoken = require('jsonwebtoken');
+const configDB = require('../config/db');
 
 
 // router.get('/reg', (req, res) => {
@@ -24,11 +27,37 @@ router.post('/reg', (req, res) => {
     res.status(201)
 })
 
-router.get('/auth', (req, res) => {
-    res.send('/account/auth Page')
+router.post('/auth', (req, res) => {
+    const login = req.body.login
+    const password = req.body.password
+    User.getUserByLogin(login, (err, user) => {
+        if (err) { throw err }
+        if (!user) {
+            return res.json({ success: false, message: 'User is not founded' })
+        }
+
+        User.comparePass(password, user.password, (errs, isMatch) => {
+            if (err) { throw err }
+            if (isMatch) {
+                const token = jsonwebtoken.sign(user, configDB.secret, { expiresIn: 3600 * 24 })
+                res.json({
+                    success: true,
+                    token: 'JWT ' + token,
+                    user: {
+                        id: user._id,
+                        name: user.name,
+                        login: user.login,
+                        email: user.email,
+                    }
+                })
+            } else {
+                return res.json({ success: false, message: 'password incorect' })
+            }
+        })
+    })
 })
 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.send('/account/dashboard Page')
 })
 

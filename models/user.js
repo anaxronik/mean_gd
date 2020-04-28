@@ -23,10 +23,17 @@ module.exports.getUserById = function (id, callback) {
 
 module.exports.addUser = function (newUser, callback) {
     bcryptjs.genSalt(10, (err, salt) => {
-        bcryptjs.hash(newUser.password, salt, (err, hash)=>{
-            if(err) throw err
+        bcryptjs.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err
             newUser.password = hash
             newUser.save(callback)
         })
+    })
+}
+
+module.exports.comparePass = function (passFromUser, userDBPass, callback) {
+    bcryptjs.compare(passFromUser, userDBPass, (err, isMatch) => {
+        if (err) { throw err }
+        callback(null, isMatch)
     })
 }
