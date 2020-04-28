@@ -21,7 +21,7 @@ router.post('/reg', (req, res) => {
             res.json({ success: true, message: 'User has been add' })
 
     })
-    // res.send('/account/reg Page')
+    res.status(201)
 })
 
 router.get('/auth', (req, res) => {
