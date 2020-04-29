@@ -426,9 +426,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AuthService, [{
         key: "registerUser",
         value: function registerUser(user) {
+          var url = 'https://mean-gd.herokuapp.com/account/reg';
+          console.log('Try send info on:', url);
           var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
           headers.append('Content-type', 'application/json');
-          return this.http.post('account/reg', user, {
+          return this.http.post(url, user, {
             headers: headers
           }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) {
             return res.json();
@@ -437,6 +439,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "authUser",
         value: function authUser(user) {
+          var url = 'https://mean-gd.herokuapp.com/account/auth';
+          console.log('Try send info on:', url);
           var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
           headers.append('Content-type', 'application/json');
           return this.http.post('account/auth', user, {

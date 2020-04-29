@@ -14,15 +14,19 @@ export class AuthService {
   constructor(private http: Http) { }
 
   registerUser(user) {
+    const url = 'https://mean-gd.herokuapp.com/account/reg'
+    console.log('Try send info on:', url)
     let headers = new Headers()
     headers.append('Content-type', 'application/json')
     return this.http.post(
-      'account/reg',
+      url,
       user,
       { headers: headers }).pipe(map(res => res.json()))
   }
 
   authUser(user) {
+    const url = 'https://mean-gd.herokuapp.com/account/auth'
+    console.log('Try send info on:', url)
     let headers = new Headers()
     headers.append('Content-type', 'application/json')
     return this.http.post(

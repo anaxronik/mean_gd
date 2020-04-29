@@ -231,11 +231,15 @@ class AuthService {
         this.http = http;
     }
     registerUser(user) {
+        const url = 'https://mean-gd.herokuapp.com/account/reg';
+        console.log('Try send info on:', url);
         let headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-type', 'application/json');
-        return this.http.post('account/reg', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(res => res.json()));
+        return this.http.post(url, user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(res => res.json()));
     }
     authUser(user) {
+        const url = 'https://mean-gd.herokuapp.com/account/auth';
+        console.log('Try send info on:', url);
         let headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-type', 'application/json');
         return this.http.post('account/auth', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(res => res.json()));
