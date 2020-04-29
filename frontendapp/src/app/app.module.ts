@@ -13,6 +13,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FooterComponent } from './footer/footer.component'
 import { FormsModule } from '@angular/forms'
 import { CheckFormService } from './check-form.service'
+import { AuthService } from './auth.service'
+import { HttpModule } from '@angular/http'
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,9 +38,11 @@ const appRoutes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    HttpModule,
   ],
   providers: [
     CheckFormService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })
