@@ -17,7 +17,7 @@ export class AuthService {
     let headers = new Headers()
     headers.append('Content-type', 'application/json')
     return this.http.post(
-      'http://localhost:3000/account/reg',
+      'account/reg',
       user,
       { headers: headers }).pipe(map(res => res.json()))
   }
@@ -26,7 +26,7 @@ export class AuthService {
     let headers = new Headers()
     headers.append('Content-type', 'application/json')
     return this.http.post(
-      'http://localhost:3000/account/auth',
+      'account/auth',
       user,
       { headers: headers }).pipe(map(res => res.json()))
   }

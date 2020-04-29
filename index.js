@@ -44,6 +44,10 @@ app.get('/', (req, res) => {
 
 app.use('/account', accountRouter)
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'publci/index.html'))
+})
+
 app.listen(PORT, () => {
     console.log('=> Server start on port:', PORT)
 })
