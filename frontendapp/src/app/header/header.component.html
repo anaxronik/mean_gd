@@ -5,6 +5,7 @@
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" [routerLink]="['/']">Главная</a>
     </nav>
-    <a class="btn btn-outline-primary mr-3" [routerLink]="['/auth']">Войти</a>
-    <a class="btn btn-outline-primary" [routerLink]="['/reg']">Регистрация</a>
+    <a *ngIf="authService.isLoggedIn()" class="btn btn-outline-warning mr-3" [routerLink]="['/dashboard']">Кабинет</a>
+    <a *ngIf="!authService.isLoggedIn()" class=" btn btn-outline-primary mr-3" [routerLink]="['/auth']">Войти</a>
+    <a *ngIf="!authService.isLoggedIn()" class=" btn btn-outline-primary" [routerLink]="['/reg']">Регистрация</a>
 </div>
