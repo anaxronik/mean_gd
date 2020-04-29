@@ -11,6 +11,7 @@ const configDB = require('../config/db');
 // })
 
 router.post('/reg', (req, res) => {
+    console.log('===> Try register new user:', req.body.login)
     let newUser = new User({
         name: req.body.name,
         email: req.body.email,
@@ -18,16 +19,18 @@ router.post('/reg', (req, res) => {
         password: req.body.password,
     })
     User.addUser(newUser, (err, user) => {
-        if (err)
+        if (err) {
             res.json({ success: false, message: 'User is NOT add' })
-        else
+        } else {
             res.json({ success: true, message: 'User has been add' })
-
+            console.log('===> Correct register new user:', newUser.login)
+        }
     })
     res.status(201)
 })
 
 router.post('/auth', (req, res) => {
+    console.log('===> Try login user:', req.body.login)
     const login = req.body.login
     const password = req.body.password
     User.getUserByLogin(login, (err, user) => {
@@ -39,7 +42,7 @@ router.post('/auth', (req, res) => {
         User.comparePass(password, user.password, (errs, isMatch) => {
             if (err) { throw err }
             if (isMatch) {
-                const token = jsonwebtoken.sign(user, configDB.secret, { expiresIn: 3600 * 24 })
+                const token = jsonwebtoken.sign(user.toJSON(), configDB.secret, { expiresIn: 3600 * 24 })
                 res.json({
                     success: true,
                     token: 'JWT ' + token,
@@ -50,6 +53,7 @@ router.post('/auth', (req, res) => {
                         email: user.email,
                     }
                 })
+                console.log('===> correct login:', user.login)
             } else {
                 return res.json({ success: false, message: 'password incorect' })
             }
